@@ -1,15 +1,35 @@
 package com.xworkz.security_modules.controller;
 
+import com.xworkz.security_modules.dto.UserDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class UserController {
 
+    List<UserDTO> userDTOS = new ArrayList<>(List.of(
+            new UserDTO("Harsha","harsha33","Shriharshakm10@gmail.com"),
+            new UserDTO("Inchara","harsha33","Shriharshakm@gmail.com")
+    ));
+
     @GetMapping("")
     public String user(HttpServletRequest httpServletRequest){
-
         return "Hello spring security"+httpServletRequest.getSession().getId();
+    }
+
+    @GetMapping("/users")
+    public List<UserDTO> fetch(){
+        return userDTOS;
+    }
+
+    @PostMapping("/users")
+    public List<UserDTO> addUser(UserDTO userDTO){
+        userDTOS.add(userDTO);
+        return userDTOS;
     }
 }
